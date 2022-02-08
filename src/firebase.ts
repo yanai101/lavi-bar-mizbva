@@ -3,7 +3,7 @@ import {addDoc, collection, doc, getDocs, getFirestore, updateDoc} from 'firebas
 
 const DB_NAME = 'guest-list';
 
-const firebaseConfig = {
+const firebaseConfig: any = {
   apiKey: import.meta.env.VITE_apiKey,
   authDomain: import.meta.env.VITE_authDomain,
   projectId: import.meta.env.VITE_projectId,
@@ -30,7 +30,7 @@ export const getGuests = async()=>{
 }
 
 
-export const addGuest = async(data : any)=>{
+export const addGuest = async(data : any): Promise<any> =>{
   try{
   await addDoc(colRef, data);
   return true
@@ -42,7 +42,7 @@ export const addGuest = async(data : any)=>{
 
 
 // updating a document
-export const updateFormDB = async(data: any, id: any) =>{
+export const updateFormDB = async(data: any, id: any):Promise<any> =>{
   try{
     let docRef = doc(db,DB_NAME, id)
     await updateDoc(docRef, data)

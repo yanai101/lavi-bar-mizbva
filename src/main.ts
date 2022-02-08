@@ -2,11 +2,10 @@ import './style.scss';
 
 
 
-import { addGuest, getGuests, updateFormDB} from './firebase'
+import {  getGuests} from './firebase'
 import { addMainForm } from './elements';
 
-const app = document.getElementById('app');
-const addMeg= document.querySelector('.add-msg')
+const app: any = document.getElementById('app');
 
 const loadData = async()=>{
   const data = await getGuests();
@@ -16,14 +15,6 @@ loadData()
 
 
 // edit guest
-
-
-const showAddMessage = (type) => {
-  
-  app.classList.add(type);
-}
-
-
 
 window.onload = () => {
   addMainForm(app);

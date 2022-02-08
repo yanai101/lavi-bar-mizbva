@@ -48,10 +48,10 @@ export const addMainForm = (app: HTMLDivElement)=>{
 </form>`
 
 app.insertAdjacentHTML('beforeend', html);
-const form = document.getElementById('guestForm');
+const form: any = document.getElementById('guestForm');
 addBtnListeners();
 
-form?.addEventListener('submit', async(e) => {
+form?.addEventListener('submit', async(e: any) => {
   e.preventDefault();
   const data = {
     name: form.name.value,
@@ -83,7 +83,7 @@ form?.addEventListener('submit', async(e) => {
 }
 
 
-const addEditForm = (app: HTMLDivElement , inListData)=>{
+const addEditForm = (app: HTMLDivElement , inListData: any)=>{
   const html = ` <form id="inListForm" class="box in-list-form animate__animated">
   <h3>נראה שכבר נרשמת ... רוצה לעדכן ? </h3>
   <input class="input" type="hidden" id="hiddenId">
@@ -132,7 +132,7 @@ app.insertAdjacentHTML('afterbegin', html);
 
 addBtnListeners();
 
-const inListForm = document.getElementById('inListForm');
+const inListForm: any = document.getElementById('inListForm');
   if(inListData){
     inListForm.name.value = inListData.name;
     inListForm.lastName.value = inListData.lastName;
@@ -142,7 +142,7 @@ const inListForm = document.getElementById('inListForm');
     inListForm.hiddenId.value = inListData.id;
   }
   inListForm?.classList.add('animate__backInUp');
-  inListForm?.addEventListener('submit', async(e) => {
+  inListForm?.addEventListener('submit', async(e: any) => {
     e.preventDefault();
     const data = {
       name: inListForm.name.value,
@@ -165,7 +165,7 @@ const inListForm = document.getElementById('inListForm');
   
 }
 
-const checkGuest = async(data)=>{
+const checkGuest = async(data: any)=>{
   const guests = await getGuests();
   const isInList = guests.filter((guest: any) => guest.phone.includes(data.phone));
   return isInList.length === 0 ? false : isInList[0];
@@ -199,7 +199,7 @@ const addMessage = (app: HTMLDivElement)=> {
   },2000)
 }
 
-const addConfettiBtn=(app)=>{
+const addConfettiBtn=(app: any)=>{
   const html =`  <button class="button is-info is-light" id="confetti">רוצה עוד קונפטי 🎉</button>  `
   
   app.insertAdjacentHTML('beforeend', html);
@@ -249,7 +249,7 @@ const removeBtnListeners = ()=>{
 }
 
 const increment = () => {
-  const guests = document.getElementById('guests');
+  const guests: any = document.getElementById('guests');
   if(guests){
     guests.value = Number(guests?.value) + 1;
 
