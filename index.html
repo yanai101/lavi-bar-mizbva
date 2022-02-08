@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <main>
+      <header id="header">
+        <section class="header-Text">
+          <h1 class="animate__animated animate__bounceInDown">לביא חוגג בר מצווה</h1>
+          <h2 class="animate__animated animate__bounceInDown animate__delay-1s">ואנחנו שמחים להזמינכם לאירוע </h2>
+          <h2 class="animate__animated animate__bounceInDown animate__delay-2s">שכולו משפחה וחברים קרובים</h2>
+        </section>
+        <section class="details">
+          <div class="card">
+            <div class="card-content">
+              <div class="content">
+                <p>יום חמישי כ"א אדר ב'- 24.3</p>
+                <p>בשעה 19:30</p>
+                <p>באולמי אמה - דימונה</p>
+              </div>
+            </div>
+          </div>
+       
+        </section>
+
+      </header>
+      <video autoplay muted loop>
+        <source src="./media/bg.mp4" type="video/mp4">
+        </video>
+      <div id="app" class="container ">
+  
+        <!-- form with name last name and phone number -->
+      </div>
+    </main>
+      <script type="module" src="/src/main.ts"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.fog.min.js"></script>
+    <script>
+    VANTA.FOG({
+      el: "#header",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 250.00,
+      minWidth: 200.00
+    })
+    </script>
+  </body>
+</html>
