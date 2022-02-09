@@ -5,7 +5,7 @@ const jsConfetti = new JSConfetti();
 
 
 export const addMainForm = (app: HTMLDivElement)=>{
-  const html = ` <form id="guestForm" class="box add-form animate__animated animate__delay-3s animate__backInDown">
+  const html = ` <form id="guestForm" class="box add-form animate__animated animate__delay-2s animate__backInDown">
   <div class="field">
     <label class="label">שם פרטי</label>
     <div class="control">
@@ -26,7 +26,7 @@ export const addMainForm = (app: HTMLDivElement)=>{
     </div>
     <div class="field">
     <label class="label">מספר אורחים</label>
-    <div class="control">
+    <div class="control add-guest">
       <span id="addG" class="button is-link is-light">+</span>
         <input class="input is-link" inputmode="numeric" type="number" id="guests" min="0" required name="guestNumber" placeholder="מספר אורחים" />
       <span id="removeG" class="button is-link is-light" >-</span>
@@ -53,6 +53,10 @@ addBtnListeners();
 
 form?.addEventListener('submit', async(e: any) => {
   e.preventDefault();
+  const btn:any = document.querySelector('button[type="submit"]');
+  form.classList.remove('animate__delay-2s')
+  btn.disabled = 'disabled';
+
   const data = {
     name: form.name.value,
     lastName: form.lastName.value,
@@ -61,20 +65,20 @@ form?.addEventListener('submit', async(e: any) => {
     guests: form.guests.value,
   }
   const isInList= await checkGuest(data);
+  form.classList.add('animate__backOutUp');
   if(!isInList){
     const result = await addGuest(data);
     if(result){
-      form.classList.add('animate__fadeOutDown');
-      setTimeout(()=>{
+      form.addEventListener('animationend',()=>{
         app.removeChild(form);
         addMessage(app)
-      },500)
+      },{once: true});
     }
   } else{
-    form.classList.add('animate__fadeOutDown');
-    setTimeout(()=>{
+    form.addEventListener('animationend',()=>{
+      app.removeChild(form);
       addEditForm(app, isInList)
-    },500)
+    },{once: true});
   }
   removeBtnListeners();
 });
@@ -84,7 +88,7 @@ form?.addEventListener('submit', async(e: any) => {
 
 
 const addEditForm = (app: HTMLDivElement , inListData: any)=>{
-  const html = ` <form id="inListForm" class="box in-list-form animate__animated">
+  const html = ` <form id="inListForm" class="box in-list-form animate__animated animate__backInDown">
   <h3>נראה שכבר נרשמת ... רוצה לעדכן ? </h3>
   <input class="input" type="hidden" id="hiddenId">
   <div class="field">
@@ -107,7 +111,7 @@ const addEditForm = (app: HTMLDivElement , inListData: any)=>{
   </div>
   <div class="field">
     <label class="label">מספר אורחים</label>
-    <div class="control">
+    <div class="control add-guest">
       <span id="addG" class="button is-success is-light">+</span>
         <input class="input is-success" inputmode="numeric" type="number" id="guests" min="0" required name="guestNumber" placeholder="מספר אורחים" />
       <span id="removeG" class="button is-success is-light" >-</span>
@@ -141,7 +145,7 @@ const inListForm: any = document.getElementById('inListForm');
     inListForm.guests.value = inListData.guests;
     inListForm.hiddenId.value = inListData.id;
   }
-  inListForm?.classList.add('animate__backInUp');
+
   inListForm?.addEventListener('submit', async(e: any) => {
     e.preventDefault();
     const data = {
@@ -154,12 +158,12 @@ const inListForm: any = document.getElementById('inListForm');
   
       const result = await updateFormDB(data, inListForm.hiddenId.value);
       if(result){
-        inListForm.classList.add('animate__fadeOutDown');
-        setTimeout(()=>{
+        inListForm.classList.add('animate__backOutUp');
+        inListForm.addEventListener('animationend',()=>{
           app.removeChild(inListForm);
           addMessage(app)
-        },500)
-        removeBtnListeners();
+          removeBtnListeners();
+        },{once:true});
       }
   });
   
@@ -199,9 +203,7 @@ const addMessage = (app: HTMLDivElement)=> {
 const addConfettiBtn=()=>{
  
   const btn = document.getElementById('confetti');
-  setTimeout(()=>{
-    btn?.scrollIntoView({behavior: 'smooth'});
-  },6000)
+
   btn?.addEventListener('click', ()=>{
 
     jsConfetti.addConfetti({
@@ -246,12 +248,12 @@ const removeBtnListeners = ()=>{
 const increment = () => {
   const guests: any = document.getElementById('guests');
   if(guests){
-    guests.value = Number(guests?.value) + 1;
 
+    guests.value = Number(guests?.value) + 1 > 10 ? 10 : Number(guests?.value) + 1;
   }
 }
 
 const decrement = ()=>{
   const guests: any = document.getElementById('guests');
-  guests.value = Number(guests?.value) - 1;
+  guests.value = Number(guests?.value) - 1 < 0 ? 0 : Number(guests?.value) - 1;
 }

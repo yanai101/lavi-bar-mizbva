@@ -43,8 +43,8 @@ main{
    text-align: center;
     }
   h1{
-    font-family: var(--rashi-font);
     font-size: 2.5rem;
+    text-shadow: 1px 1px 2px white, 2px 2px 4px black;
   }
   h2{
     font-size: 1.5rem;
@@ -67,4 +67,10 @@ video{
   min-height: 100%;
   object-fit: cover;
   z-index: -1;
+}
+
+.add-guest{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
 }

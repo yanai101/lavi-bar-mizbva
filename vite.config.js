@@ -1,10 +1,10 @@
-export default {
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `$injectedColor: orange;`,
-        charset: false,
-      },
-    },
-  },
-};
+// export default {
+//   css: {
+//     preprocessorOptions: {
+//       scss: {
+//         additionalData: `$injectedColor: orange;`,
+//         charset: false,
+//       },
+//     },
+//   },
+// };
