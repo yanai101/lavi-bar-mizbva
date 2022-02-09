@@ -5,7 +5,7 @@ const jsConfetti = new JSConfetti();
 
 
 export const addMainForm = (app: HTMLDivElement)=>{
-  const html = ` <form id="guestForm" class="box add-form animate__animated animate__backInDown">
+  const html = ` <form id="guestForm" class="box add-form animate__animated animate__delay-3s animate__backInDown">
   <div class="field">
     <label class="label">שם פרטי</label>
     <div class="control">
@@ -172,17 +172,12 @@ const checkGuest = async(data: any)=>{
 }
 
 const addMessage = (app: HTMLDivElement)=> {
-  const gifs = ['haQ2DRRCtIvBu','3KC2jD2QcBOSc','kHmVOy84g8G6my09fu','DKnMqdm9i980E','JoOueVidjCdjOb70BE','SRrVsCppHorVh3aick' ]
-  const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
-
   const googleCalenderLink = 'https://calendar.google.com/event?action=TEMPLATE&tmeid=MWxiZWU1NjNodGVnNzh0YWU5ZXR2cGdjcm8geWFuYWkxMDFAbQ&tmsrc=yanai101%40gmail.com';
   const html =`<div class="tag is-info is-large animate__animated animate__bounceIn">נתראה  בבר מצווה 🥰</div>
   <br/><br/>
   <div class="animate__animated animate__flipInY animate__delay-1s	">
   <a class="button" target="_blank" href="${googleCalenderLink}">🗓️ הוסיפו ליומן </a>
-  </div>
-  <br/><br/>
-  <p><iframe src="https://giphy.com/embed/${randomGif}" width="480" height="262" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></p>`
+  </div>`
   
   app.insertAdjacentHTML('afterbegin', html);
   setTimeout(()=>{
@@ -196,7 +191,7 @@ const addMessage = (app: HTMLDivElement)=> {
     })
 
     addConfettiBtn(app)
-  },2000)
+  },1000)
 }
 
 const addConfettiBtn=(app: any)=>{
