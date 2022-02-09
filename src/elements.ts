@@ -175,8 +175,10 @@ const addMessage = (app: HTMLDivElement)=> {
   const googleCalenderLink = 'https://calendar.google.com/event?action=TEMPLATE&tmeid=MWxiZWU1NjNodGVnNzh0YWU5ZXR2cGdjcm8geWFuYWkxMDFAbQ&tmsrc=yanai101%40gmail.com';
   const html =`<div class="tag is-info is-large animate__animated animate__bounceIn">נתראה  בבר מצווה 🥰</div>
   <br/><br/>
-  <div class="animate__animated animate__flipInY animate__delay-1s	">
+  <div class="animate__animated animate__flipInY animate__delay-1s">
   <a class="button" target="_blank" href="${googleCalenderLink}">🗓️ הוסיפו ליומן </a>
+  <br/><br/>
+  <button class="button is-info is-light animate__animated animate__jackInTheBox animate__delay-4s" id="confetti">רוצה עוד קונפטי 🎉</button>
   </div>`
   
   app.insertAdjacentHTML('afterbegin', html);
@@ -190,14 +192,12 @@ const addMessage = (app: HTMLDivElement)=> {
     confettiNumber: 400
     })
 
-    addConfettiBtn(app)
+    addConfettiBtn()
   },1000)
 }
 
-const addConfettiBtn=(app: any)=>{
-  const html =`  <button class="button is-info is-light" id="confetti">רוצה עוד קונפטי 🎉</button>  `
-  
-  app.insertAdjacentHTML('beforeend', html);
+const addConfettiBtn=()=>{
+ 
   const btn = document.getElementById('confetti');
   setTimeout(()=>{
     btn?.scrollIntoView({behavior: 'smooth'});
