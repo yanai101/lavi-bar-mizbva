@@ -3,7 +3,7 @@ import {addDoc, collection, doc, getDocs, getFirestore, updateDoc} from 'firebas
 
 const DB_NAME = 'guest-list';
 
-const firebaseConfig: any = {
+let firebaseConfig: any = {
   apiKey: import.meta.env.VITE_apiKey,
   authDomain: import.meta.env.VITE_authDomain,
   projectId: import.meta.env.VITE_projectId,
@@ -12,7 +12,7 @@ const firebaseConfig: any = {
   appId: import.meta.env.VITE_appId,
 };
 
-initializeApp(firebaseConfig);
+initializeApp({projectId: import.meta.env.VITE_projectId});
 
 const db = getFirestore();
 
