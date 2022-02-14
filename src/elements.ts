@@ -1,6 +1,5 @@
 import { addGuest, getGuests, updateFormDB } from "./firebase";
 import JSConfetti from 'js-confetti'
-import { sendSMS } from "./main";
 
 const jsConfetti = new JSConfetti();
 
