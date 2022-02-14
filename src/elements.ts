@@ -1,10 +1,11 @@
 import { addGuest, getGuests, updateFormDB } from "./firebase";
 import JSConfetti from 'js-confetti'
+import { sendSMS } from "./main";
 
 const jsConfetti = new JSConfetti();
 
 
-export const addMainForm = (app: HTMLDivElement)=>{
+export const addMainForm = (app: HTMLDivElement) => {
   const html = ` <form id="guestForm" class="box add-form animate__animated animate__delay-2s animate__backInDown">
   <div class="field">
     <label class="label">שם פרטי</label>
@@ -19,7 +20,7 @@ export const addMainForm = (app: HTMLDivElement)=>{
     </div>
   </div>
   <div class="field">
-    <label class="label">טלפון</label>
+    <label class="label">טלפון (מספר שלם בלי קידומת ומקפים)</label>
     <div class="control">
     <input class="input is-link"  type="number" id="phone" inputmode="numeric" required name="phone" placeholder="טלפון" />
     </div>
@@ -47,47 +48,54 @@ export const addMainForm = (app: HTMLDivElement)=>{
   </div>
 </form>`
 
-app.insertAdjacentHTML('beforeend', html);
-const form: any = document.getElementById('guestForm');
-addBtnListeners();
+  app.insertAdjacentHTML('beforeend', html);
+  const form: any = document.getElementById('guestForm');
+  addBtnListeners();
 
-form?.addEventListener('submit', async(e: any) => {
-  e.preventDefault();
-  const btn:any = document.querySelector('button[type="submit"]');
-  form.classList.remove('animate__delay-2s')
-  btn.disabled = 'disabled';
+  form?.addEventListener('submit', async (e: any) => {
+    e.preventDefault();
+    const btn: any = document.querySelector('button[type="submit"]');
+    form.classList.remove('animate__delay-2s')
+    btn.disabled = 'disabled';
 
-  const data = {
-    name: form.name.value,
-    lastName: form.lastName.value,
-    phone: form.phone.value,
-    note: form.note.value,
-    guests: form.guests.value,
-  }
-  const isInList= await checkGuest(data);
-  form.classList.add('animate__backOutUp');
-  if(!isInList){
-    const result = await addGuest(data);
-    if(result){
-      form.addEventListener('animationend',()=>{
-        app.removeChild(form);
-        addMessage(app)
-      },{once: true});
+    const data = {
+      name: form.name.value,
+      lastName: form.lastName.value,
+      phone: form.phone.value,
+      note: form.note.value,
+      guests: form.guests.value,
     }
-  } else{
-    form.addEventListener('animationend',()=>{
-      app.removeChild(form);
-      addEditForm(app, isInList)
-    },{once: true});
-  }
-  removeBtnListeners();
-});
+    const isInList = await checkGuest(data);
+    form.classList.add('animate__backOutUp');
+    if (!isInList) {
+      const result = await addGuest(data);
+      if (result) {
+        form.addEventListener('animationend', () => {
+          app.removeChild(form);
+          addMessage(app)
+          const smsString = `איזה כיף!!!
+                      ${data.name} ${data.lastName}
+                      אנחנו שמחים שאתם באים לחגוג עם לביא שלנו בר מצווה-
+                      מצפים לראות אתכם!!!
+                            🥰
+        `;
+          sendSMSReq(data.phone, smsString)
+        }, { once: true });
+      }
+    } else {
+      form.addEventListener('animationend', () => {
+        app.removeChild(form);
+        addEditForm(app, isInList)
+      }, { once: true });
+    }
+    removeBtnListeners();
+  });
 
 
 }
 
 
-const addEditForm = (app: HTMLDivElement , inListData: any)=>{
+const addEditForm = (app: HTMLDivElement, inListData: any) => {
   const html = ` <form id="inListForm" class="box in-list-form animate__animated animate__backInDown">
   <h3>נראה שכבר נרשמת ... רוצה לעדכן ? </h3>
   <input class="input" type="hidden" id="hiddenId">
@@ -104,7 +112,7 @@ const addEditForm = (app: HTMLDivElement , inListData: any)=>{
     </div>
   </div>
   <div class="field">
-    <label class="label">טלפון</label>
+    <label class="label">טלפון (מספר שלם בלי קידומת ומקפים)</label>
     <div class="control">
       <input class="input is-success" type="number" id="phone" inputmode="numeric" required name="phone" placeholder="טלפון" />
     </div>
@@ -132,12 +140,12 @@ const addEditForm = (app: HTMLDivElement , inListData: any)=>{
   </div>
 </form>`
 
-app.insertAdjacentHTML('afterbegin', html);
+  app.insertAdjacentHTML('afterbegin', html);
 
-addBtnListeners();
+  addBtnListeners();
 
-const inListForm: any = document.getElementById('inListForm');
-  if(inListData){
+  const inListForm: any = document.getElementById('inListForm');
+  if (inListData) {
     inListForm.name.value = inListData.name;
     inListForm.lastName.value = inListData.lastName;
     inListForm.phone.value = inListData.phone;
@@ -146,7 +154,7 @@ const inListForm: any = document.getElementById('inListForm');
     inListForm.hiddenId.value = inListData.id;
   }
 
-  inListForm?.addEventListener('submit', async(e: any) => {
+  inListForm?.addEventListener('submit', async (e: any) => {
     e.preventDefault();
     const data = {
       name: inListForm.name.value,
@@ -155,29 +163,29 @@ const inListForm: any = document.getElementById('inListForm');
       note: inListForm.note.value,
       guests: inListForm.guests.value,
     }
-  
-      const result = await updateFormDB(data, inListForm.hiddenId.value);
-      if(result){
-        inListForm.classList.add('animate__backOutUp');
-        inListForm.addEventListener('animationend',()=>{
-          app.removeChild(inListForm);
-          addMessage(app)
-          removeBtnListeners();
-        },{once:true});
-      }
+
+    const result = await updateFormDB(data, inListForm.hiddenId.value);
+    if (result) {
+      inListForm.classList.add('animate__backOutUp');
+      inListForm.addEventListener('animationend', () => {
+        app.removeChild(inListForm);
+        addMessage(app)
+        removeBtnListeners();
+      }, { once: true });
+    }
   });
-  
+
 }
 
-const checkGuest = async(data: any)=>{
+const checkGuest = async (data: any) => {
   const guests = await getGuests();
   const isInList = guests.filter((guest: any) => guest.phone.includes(data.phone));
   return isInList.length === 0 ? false : isInList[0];
 }
 
-const addMessage = (app: HTMLDivElement)=> {
+const addMessage = (app: HTMLDivElement) => {
   const googleCalenderLink = 'https://calendar.google.com/event?action=TEMPLATE&tmeid=MWxiZWU1NjNodGVnNzh0YWU5ZXR2cGdjcm8geWFuYWkxMDFAbQ&tmsrc=yanai101%40gmail.com';
-  const html =`<div class="tag is-info is-large animate__animated animate__bounceIn">נתראה  בבר מצווה 🥰</div>
+  const html = `<div class="tag is-info is-large animate__animated animate__bounceIn">נתראה  בבר מצווה 🥰</div>
   <br/><br/>
   <div class="animate__animated animate__flipInY animate__delay-1s">
   <a class="button" target="_blank" href="${googleCalenderLink}">🗓️ הוסיפו ליומן </a>
@@ -185,27 +193,27 @@ const addMessage = (app: HTMLDivElement)=> {
   <br/><br/>
   <button class="button is-info is-light animate__animated animate__jackInTheBox animate__delay-4s" id="confetti">רוצה עוד קונפטי 🎉</button>
   </div>`
-  
+
   app.insertAdjacentHTML('afterbegin', html);
-  setTimeout(()=>{
+  setTimeout(() => {
     jsConfetti.addConfetti({
       // emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
       // confettiColors: [
       //   '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7',
       // ],
       confettiRadius: 6,
-    confettiNumber: 400
+      confettiNumber: 400
     })
 
     addConfettiBtn()
-  },1000)
+  }, 1000)
 }
 
-const addConfettiBtn=()=>{
- 
+const addConfettiBtn = () => {
+
   const btn = document.getElementById('confetti');
 
-  btn?.addEventListener('click', ()=>{
+  btn?.addEventListener('click', () => {
 
     jsConfetti.addConfetti({
       // emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
@@ -213,34 +221,34 @@ const addConfettiBtn=()=>{
       //   '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7',
       // ],
       confettiRadius: 6,
-    confettiNumber: 400
+      confettiNumber: 400
     })
   })
-  
+
 }
 
 
 
-const addBtnListeners = ()=>{
+const addBtnListeners = () => {
   const addBtn = document.getElementById('addG');
-  addBtn?.addEventListener('click', ()=>{
+  addBtn?.addEventListener('click', () => {
     increment()
   })
 
   const removeBtn = document.getElementById('removeG');
-  removeBtn?.addEventListener('click', ()=>{
+  removeBtn?.addEventListener('click', () => {
     decrement()
   })
 }
 
-const removeBtnListeners = ()=>{
+const removeBtnListeners = () => {
   const removeBtn = document.getElementById('removeG');
-  removeBtn?.removeEventListener('click', ()=>{
+  removeBtn?.removeEventListener('click', () => {
     decrement()
   })
 
   const addBtn = document.getElementById('addG');
-  addBtn?.removeEventListener('click', ()=>{
+  addBtn?.removeEventListener('click', () => {
     increment()
   })
 
@@ -248,13 +256,32 @@ const removeBtnListeners = ()=>{
 
 const increment = () => {
   const guests: any = document.getElementById('guests');
-  if(guests){
+  if (guests) {
 
     guests.value = Number(guests?.value) + 1 > 10 ? 10 : Number(guests?.value) + 1;
   }
 }
 
-const decrement = ()=>{
+const decrement = () => {
   const guests: any = document.getElementById('guests');
   guests.value = Number(guests?.value) - 1 < 0 ? 0 : Number(guests?.value) - 1;
+}
+
+
+const sendSMSReq = async (phone: any, message: any) => {
+  // let formData = new FormData();
+  // formData.append('phone', phone);
+  // formData.append('message', message);
+
+  try {
+    const result = await fetch('/.netlify/functions/sendSms', {
+      method: 'POST',
+      body: JSON.stringify({ phone, message }),
+    });
+    const dataReturn = await result.json();
+    console.log('sms', dataReturn);
+  } catch (error) {
+    console.log('sms err', error);
+  }
+
 }
