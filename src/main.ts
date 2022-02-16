@@ -19,7 +19,6 @@ loadData()
 window.onload = () => {
   setTimeout(() => {
     addMainForm(app);
-    const form = document.querySelector('#guestForm');
   }, 5000);
 }
 
