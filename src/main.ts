@@ -17,9 +17,9 @@ loadData()
 // edit guest
 
 window.onload = () => {
-  addMainForm(app);
-  // setTimeout(() => {
-  //   sendSMS('0506989894', 'היי יערית אהובתי מתי נעשה 🥰')
-  // }, 1000); 
+  setTimeout(() => {
+    addMainForm(app);
+    const form = document.querySelector('#guestForm');
+  }, 5000);
 }
 

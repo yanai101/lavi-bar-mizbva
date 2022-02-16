@@ -1,16 +1,19 @@
 // netlify serverless function to send sms
 exports.handler = async (event, context) => {
   const { phone, message } = JSON.parse(event.body);
+  console.log("phone", phone);
   let statusCode = 200;
+  let data = null;
   try {
-    await sendSMS(phone, message);
+    data = await sendSMS(phone, message);
   } catch (error) {
     statusCode = 500;
+    data = error;
   }
 
   return {
-    statusCode: 200,
-    body: JSON.stringify({ message: "Hello from Netlify!" }),
+    statusCode,
+    body: JSON.stringify({ message: data }),
   };
 };
 

@@ -5,7 +5,7 @@ const jsConfetti = new JSConfetti();
 
 
 export const addMainForm = (app: HTMLDivElement) => {
-  const html = ` <form id="guestForm" class="box add-form animate__animated animate__delay-2s animate__backInDown">
+  const html = ` <form id="guestForm" class="box add-form animate__animated  animate__backInDown">
   <div class="field">
     <label class="label">שם פרטי</label>
     <div class="control">
@@ -50,6 +50,10 @@ export const addMainForm = (app: HTMLDivElement) => {
   app.insertAdjacentHTML('beforeend', html);
   const form: any = document.getElementById('guestForm');
   addBtnListeners();
+
+  form?.addEventListener('animationend', () => {
+    form.scrollIntoView({ behavior: 'smooth' });
+  })
 
   form?.addEventListener('submit', async (e: any) => {
     e.preventDefault();
@@ -152,6 +156,10 @@ const addEditForm = (app: HTMLDivElement, inListData: any) => {
     inListForm.guests.value = inListData.guests;
     inListForm.hiddenId.value = inListData.id;
   }
+
+  inListForm?.addEventListener('animationend', () => {
+    inListForm.scrollIntoView({ behavior: 'smooth' });
+  })
 
   inListForm?.addEventListener('submit', async (e: any) => {
     e.preventDefault();
