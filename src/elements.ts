@@ -196,10 +196,16 @@ const addMessage = (app: HTMLDivElement) => {
   <br/><br/>
   <div class="animate__animated animate__flipInY animate__delay-1s">
   <a class="button" target="_blank" href="${googleCalenderLink}">🗓️ הוסיפו ליומן </a>
-  <a class="button" target="_blank" href="https://waze.com/ul/hsv8bsyggz">Waze </a>
+  <a class="button waze" target="_blank" href="https://waze.com/ul/hsv8bsyggz">Waze </a>
   <br/><br/>
   <button class="button is-info is-light animate__animated animate__jackInTheBox animate__delay-4s" id="confetti">רוצה עוד קונפטי 🎉</button>
   </div>`
+
+  const wazeBtn = document.querySelector('.waze');
+
+  wazeBtn?.addEventListener('animationend', () => {
+    wazeBtn.scrollIntoView({ behavior: 'smooth' });
+  })
 
   app.insertAdjacentHTML('afterbegin', html);
   setTimeout(() => {
