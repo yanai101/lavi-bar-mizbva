@@ -201,13 +201,14 @@ const addMessage = (app: HTMLDivElement) => {
   <button class="button is-info is-light animate__animated animate__jackInTheBox animate__delay-4s" id="confetti">רוצה עוד קונפטי 🎉</button>
   </div>`
 
-  const wazeBtn = document.querySelector('.waze');
+  app.insertAdjacentHTML('afterbegin', html);
 
-  wazeBtn?.addEventListener('animationend', () => {
+  const wazeBtn = document.querySelector('.is-info');
+
+  wazeBtn?.addEventListener('animationstart', () => {
     wazeBtn.scrollIntoView({ behavior: 'smooth' });
   })
 
-  app.insertAdjacentHTML('afterbegin', html);
   setTimeout(() => {
     jsConfetti.addConfetti({
       // emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
