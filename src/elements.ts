@@ -19,7 +19,7 @@ export const addMainForm = (app: HTMLDivElement) => {
     </div>
   </div>
   <div class="field">
-    <label class="label">טלפון (מספר שלם בלי קידומת ומקפים)</label>
+    <label class="label">טלפון נייד</label>
     <div class="control">
     <input class="input is-link"  type="number" id="phone" inputmode="numeric" required name="phone" placeholder="טלפון" />
     </div>
@@ -127,7 +127,7 @@ const addEditForm = (app: HTMLDivElement, inListData: any) => {
     </div>
   </div>
   <div class="field">
-    <label class="label">טלפון (מספר שלם בלי קידומת ומקפים)</label>
+    <label class="label">טלפון נייד </label>
     <div class="control">
       <input class="input is-success" type="number" id="phone" inputmode="numeric" required name="phone" placeholder="טלפון" />
     </div>
