@@ -19,6 +19,6 @@ loadData()
 window.onload = () => {
   setTimeout(() => {
     addMainForm(app);
-  }, 5000);
+  }, 6450);
 }
 
