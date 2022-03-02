@@ -57,6 +57,18 @@ export const addMainForm = (app: HTMLDivElement) => {
 
   form?.addEventListener('submit', async (e: any) => {
     e.preventDefault();
+
+    if (!isValidPhone(form.phone.value)) {
+      const phone = document.querySelector('#phone');
+      if (phone) {
+        phone.classList.add('animate__animated', 'animate__shakeX');
+        phone.addEventListener('animationend', () => {
+          phone.classList.remove('animate__animated', 'animate__shakeX');
+        });
+      }
+      return;
+    }
+
     const btn: any = document.querySelector('button[type="submit"]');
     form.classList.remove('animate__delay-2s')
     btn.disabled = 'disabled';
@@ -163,6 +175,18 @@ const addEditForm = (app: HTMLDivElement, inListData: any) => {
 
   inListForm?.addEventListener('submit', async (e: any) => {
     e.preventDefault();
+
+    if (!isValidPhone(inListForm.phone.value)) {
+      const phone = document.querySelector('#phone');
+      if (phone) {
+        phone.classList.add('animate__animated', 'animate__shakeX');
+        phone.addEventListener('animationend', () => {
+          phone.classList.remove('animate__animated', 'animate__shakeX');
+        });
+      }
+      return;
+    }
+
     const data = {
       name: inListForm.name.value,
       lastName: inListForm.lastName.value,
@@ -298,4 +322,10 @@ const sendSMSReq = async (phone: any, message: any) => {
     console.log('sms err', error);
   }
 
+}
+
+
+const isValidPhone = (phone: string) => {
+  const regex = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/;
+  return regex.test(phone);
 }
