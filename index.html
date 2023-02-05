@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="he">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>בר מצווה לביא</title>
     <!-- Search Engine -->
-    <meta name="description" content="בר מצווה לביא 24.3">
-    <meta name="image" content="./image/lavi.jpg">
+    <meta name="description" content="בר מצווה לביא 24.3" />
+    <meta name="image" content="./image/lavi.jpg" />
     <!-- Schema.org for Google -->
-    <meta itemprop="name" content="בר מצווה לביא">
-    <meta itemprop="description" content="בר מצווה לביא 24.3">
-    <meta itemprop="og:image" content="./image/lavi.png">
+    <meta itemprop="name" content="בר מצווה לביא" />
+    <meta itemprop="description" content="בר מצווה לביא 24.3" />
+    <meta itemprop="og:image" content="./image/lavi.png" />
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="בר מצווה לביא">
-    <meta name="og:description" content="בר מצווה לביא 24.3">
-    <meta name="og:site_name" content="לביא בר מצווה">
-    <meta name="og:type" content="website">
+    <meta name="og:title" content="בר מצווה לביא" />
+    <meta name="og:description" content="בר מצווה לביא 24.3" />
+    <meta name="og:site_name" content="לביא בר מצווה" />
+    <meta name="og:type" content="website" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.fog.min.js"></script>
-    <title>Vite App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.fog.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js"></script>
+    <title>ברית משפחת אדרי</title>
   </head>
   <body>
     <main>
       <header id="header">
         <section class="header-Text">
-          <h1 class="animate__animated animate__bounceInDown">לביא חוגג בר מצווה</h1>
-          <h2 class="animate__animated animate__bounceInDown animate__delay-1s">ואנחנו שמחים להזמינכם לאירוע </h2>
-          <h2 class="animate__animated animate__bounceInDown animate__delay-1s">שכולו משפחה וחברים קרובים</h2>
-          <h2 class="animate__animated animate__bounceInDown animate__delay-1s">יום חמישי כ"א אדר ב'- 24.3</h2>
-
+          <h1 class="animate__animated animate__bounceInDown">אח נולד לגיא ונעם</h1>
+          <h2 class="animate__animated animate__bounceInDown animate__delay-1s">ואנחנו שמחים להזמינכם לברית</h2>
+          <h2 class="animate__animated animate__bounceInDown animate__delay-1s">שתתקיים ביום חמישי 9.2</h2>
+          <h2 class="animate__animated animate__bounceInDown animate__delay-1s">י"ח שבט ה'תשפ"ג</h2>
         </section>
         <section class="details animate__animated animate__delay-1s animate__bounceInRight">
           <!-- <div class="card card animate__animated animate__delay-2s animate__flipInX ">
@@ -45,37 +45,48 @@
             <div class="card-content">
               <div class="content">
                 <h2 class="header-Text">בואו לחגוג עימנו - משפחה וחברים</h2>
-                <p>בשעה 19:30</p>
-                <p>באולמי אמה - דימונה</p>
+                <p>בשעה 15:00</p>
+                <p>באולמי היכל דוד בירוחם</p>
               </div>
             </div>
           </div>
-
-        
-      
         </section>
-
       </header>
-      <video autoplay muted loop>
-        <source src="./media/bg.mp4" type="video/mp4">
-        </video>
-      <div id="app" class="container ">
-  
+      <img src="./media/ben+meshi.jpeg" alt="Edri Family" />
+      <!-- <video autoplay muted loop>
+        <source src="./media/bg.mp4" type="video/mp4" />
+      </video> -->
+      <div id="app" class="container">
         <!-- form with name last name and phone number -->
       </div>
     </main>
-      <script type="module" src="/src/main.ts"></script>
-   
+    <script type="module" src="/src/main.ts"></script>
+
     <script>
-    VANTA.FOG({
-      el: "#header",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 250.00,
-      minWidth: 200.00,
-      speed: 1.70,
-    })
+      VANTA.WAVES({
+        el: "#header",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+      });
+      // VANTA.FOG({
+      //   el: "#header",
+      //   mouseControls: true,
+      //   touchControls: true,
+      //   gyroControls: false,
+      //   minHeight: 200.0,
+      //   minWidth: 200.0,
+      //   highlightColor: 0x54cf7,
+      //   midtoneColor: 0x540ac,
+      //   lowlightColor: 0x40452,
+      //   blurFactor: 0.47,
+      //   speed: 0.6,
+      //   zoom: 0.5,
+      // });
     </script>
   </body>
 </html>
